@@ -1,7 +1,10 @@
 extensions:
   OverloadedStrings: true
 files:
+  World: src/World.hs
+  Physics: src/Physics.hs
   Main: src/Main.hs
+  Simulation: src/Simulation.hs
 module-template: ! 'module MODULE_NAME where
 
 '
