@@ -97,28 +97,28 @@ readWorld fname
 solarWorld :: World
 solarWorld = World 0 distanceScale (earthMass / 10000) 750
                       [ Particle (Mass sunMass) (Pos 0 0) (Vel 0 0)
-                      , Particle (Mass cometMass) (Pos cometDistance 0) (Vel 0 cometVelocity)
-                      , Particle (Mass cometMass) (Pos (-cometDistance) (-cometDistance)) (Vel (5000) (-5000))
+                      , Particle (Mass cometMass) (Pos cometDist 0) (Vel 0 cometVelocity)
+                      , Particle (Mass cometMass) (Pos (-cometDist) (-cometDist)) (Vel (5000) (-5000))
                       , Particle (Mass cometMass) (Pos (2.0e11) (1.0e11)) (Vel (-2500) (5000))
-                      , Particle (Mass earthMass) (Pos earthDistance 0) (Vel 0 earthVelocity)
-                      , Particle (Mass venusMass) (Pos venusDistance 0) (Vel 0 venusVelocity)
-                      , Particle (Mass mercuryMass) (Pos mercuryDistance 0) (Vel 0 mercuryVelocity)]
+                      , Particle (Mass earthMass) (Pos earthDist  0) (Vel 0 earthVelocity)
+                      , Particle (Mass venusMass) (Pos venusDist  0) (Vel 0 venusVelocity)
+                      , Particle (Mass mercuryMass) (Pos mercuryDist  0) (Vel 0 mercuryVelocity)]
   where
     sunMass         = 1.9891e30
-    earthDistance   = 152098232e3   -- Aphelion
+    earthDist       = 152098232e3   -- Aphelion
     earthMass       = 5.9736e24
     earthVelocity   = 29.78e3
-    venusDistance   = 1.08e11
+    venusDist       = 1.08e11
     venusMass       = 4.869e24
     venusVelocity   = 35e3
-    mercuryDistance = 4.6e10
+    mercuryDist     = 4.6e10
     mercuryMass     = 3.3e23
     mercuryVelocity = 49.88e3
-    cometDistance   = 2.0e11
+    cometDist       = 2.0e11
     cometMass       = 1.0e20
     cometVelocity   = 7000
     --
-    distanceScale = (fromIntegral height * 0.4) / earthDistance
+    distanceScale = (fromIntegral height * 0.4) / earthDist 
 
 world4 :: World
 world4 = World 0 0.5 9.42590890872e11 1
