@@ -1,5 +1,4 @@
-extensions:
-  OverloadedStrings: true
+extensions: {}
 files:
   World: src/World.hs
   Physics: src/Physics.hs
@@ -9,6 +8,4 @@ files:
 module-template: ! 'module MODULE_NAME where
 
 '
-targets:
-  Main:
-    TargetWeb: []
+targets: {}
