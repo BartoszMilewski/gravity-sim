@@ -4,7 +4,8 @@ import World
 
 -- Given two particles, determine the acceleration exerted by the second on the first.
 --
--- As a special case, the force is zero if both particles are closer than a minimal epsilon distance.
+-- As a special case, the force is zero if both particles are closer than 
+-- a minimal epsilon distance.
 --
 force :: Particle -> Particle -> Accel
 force (Particle (Mass m1) (Pos x1 y1) _) (Particle (Mass m2) (Pos x2 y2) _)
@@ -26,10 +27,12 @@ kineticEnergy (Particle (Mass m) _ (Vel vx vy)) = realToFrac $ 0.5 * m * vsqr
 
 -- The potential energy of a system of two masses
 --
--- As a special case, the energy is zero if both particles are closer than a minimal epsilon distance
+-- As a special case, the energy is zero if both particles are closer than 
+-- a minimal epsilon distance
 --
 potentialEnergy :: Particle -> Particle -> Energy
-potentialEnergy (Particle (Mass m1) pos1@(Pos x1 y1) _) (Particle (Mass m2) pos2@(Pos x2 y2) _)
+potentialEnergy (Particle (Mass m1) pos1@(Pos x1 y1) _) 
+                (Particle (Mass m2) pos2@(Pos x2 y2) _)
   | d < epsilon = 0
   | otherwise   = - (realToFrac bigG * realToFrac m1 * realToFrac m2 / realToFrac d)
   where
