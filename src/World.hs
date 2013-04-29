@@ -51,7 +51,8 @@ data Velocity  = Vel { vx :: Float, vy :: Float } deriving (Show, Read) -- in me
 data Accel     = Acc { ax :: Float, ay :: Float } deriving (Show, Read) -- in meter/second^2
 type Energy    = Double             -- in joule
 
--- We represent particles as mass points at a particular position that have a particular velocity
+-- We represent particles as mass points at a particular position that have 
+-- a particular velocity
 --
 data Particle = Particle {
     mass :: Mass
@@ -62,10 +63,10 @@ data Particle = Particle {
 -- The world state consists of three scaling factors and a set of particles.  
 --
 -- * The first scaling factor determines which fraction of a pixel represents one meter.
--- * The second scaling factor determines which fraction of a pixel represents one kilogram when 
---   determining the radius of the circle representing a particle.
--- * The third scaling factor determines how many simulated seconds correspond to one second of real
---   time.
+-- * The second scaling factor determines which fraction of a pixel represents 
+--   one kilogram when determining the radius of the circle representing a particle.
+-- * The third scaling factor determines how many simulated seconds correspond to 
+--   one second of real time.
 --
 data World = World {
     seqNum  :: Int   -- sequence number to serialize communications
@@ -96,13 +97,20 @@ readWorld fname
 --
 solarWorld :: World
 solarWorld = World 0 distanceScale (earthMass / 10000) 750
-                      [ Particle (Mass sunMass) (Pos 0 0) (Vel 0 0)
-                      , Particle (Mass cometMass) (Pos cometDist 0) (Vel 0 cometVelocity)
-                      , Particle (Mass cometMass) (Pos (-cometDist) (-cometDist)) (Vel (5000) (-5000))
-                      , Particle (Mass cometMass) (Pos (2.0e11) (1.0e11)) (Vel (-2500) (5000))
-                      , Particle (Mass earthMass) (Pos earthDist  0) (Vel 0 earthVelocity)
-                      , Particle (Mass venusMass) (Pos venusDist  0) (Vel 0 venusVelocity)
-                      , Particle (Mass mercuryMass) (Pos mercuryDist  0) (Vel 0 mercuryVelocity)]
+                      [ Particle (Mass sunMass) 
+                                 (Pos 0 0) (Vel 0 0)
+                      , Particle (Mass cometMass) 
+                                 (Pos cometDist 0) (Vel 0 cometVelocity)
+                      , Particle (Mass cometMass) 
+                                 (Pos (-cometDist) (-cometDist)) (Vel (5000) (-5000))
+                      , Particle (Mass cometMass) 
+                                 (Pos (2.0e11) (1.0e11)) (Vel (-2500) (5000))
+                      , Particle (Mass earthMass) 
+                                 (Pos earthDist  0) (Vel 0 earthVelocity)
+                      , Particle (Mass venusMass) 
+                                 (Pos venusDist  0) (Vel 0 venusVelocity)
+                      , Particle (Mass mercuryMass) 
+                                 (Pos mercuryDist  0) (Vel 0 mercuryVelocity)]
   where
     sunMass         = 1.9891e30
     earthDist       = 152098232e3   -- Aphelion
