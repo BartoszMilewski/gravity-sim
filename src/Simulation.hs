@@ -1,16 +1,18 @@
 module Simulation (moveParticle, accelerate, advanceWorld) where
-  
+
 import World
 import Physics
 import Control.Parallel.Strategies
 
--- Move a particle according to its velocity for the given number of (simulated) seconds.
+-- Move a particle according to its velocity for the given 
+-- number of (simulated) seconds.
 --
 moveParticle :: Float -> Particle -> Particle
 moveParticle dt (Particle m (Pos x y) (Vel vx vy)) =
   Particle m (Pos (x + dt * vx) (y + dt * vy)) (Vel vx vy)
     
--- Accelerate a particle in dependence on the gravitational force exerted by all other particles for
+-- Accelerate a particle in dependence on the gravitational force 
+-- exerted by all other particles for
 -- the given number of (simulated) seconds.
 -- force :: Particle -> Particle -> Accel
 accelerate :: Float -> [Particle] -> [Particle]
@@ -23,7 +25,6 @@ accelerate dt particles =
       let (Acc ax ay) = force myParticle otherParticle
       in
         Particle m pos (Vel (vx + dt * ax) (vy + dt * ay))
-  
 
 -- Progressing the world state
 --
