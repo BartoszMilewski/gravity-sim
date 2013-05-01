@@ -46,7 +46,7 @@ potentialEnergy (Particle (Mass m1) pos1@(Pos x1 y1) _)
 worldEnergy :: World -> Energy
 worldEnergy world =
   let ps = parts world in
-    sumMap kineticEnergy ps + sumMap (\p -> sumMap (potentialEnergy p) ps) ps / 2
-                              -- divide by 2 as we should count every pair only once
+    sumMap (\p -> sumMap (potentialEnergy p) ps) ps / 2 + sumMap kineticEnergy ps
+           -- divide by 2 as we should count every pair only once
   where
     sumMap f = sum . map f
