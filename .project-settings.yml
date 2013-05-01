@@ -4,6 +4,7 @@ files:
   Physics: src/Physics.hs
   Json: src/Json.hs
   Main: src/Main.hs
+  Test.Main: src/Test/Main.hs
   Simulation: src/Simulation.hs
 module-template: ! 'module MODULE_NAME where
 
@@ -11,3 +12,5 @@ module-template: ! 'module MODULE_NAME where
 targets:
   Main:
     TargetWeb: []
+  Test.Main:
+    TargetConsole: []
