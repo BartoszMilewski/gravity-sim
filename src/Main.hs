@@ -174,7 +174,7 @@ getHomeR = defaultLayout $ do
 
 -- Server side logic
 
-postAdvanceR :: Handler RepJson
+postAdvanceR :: Handler Value
 postAdvanceR = do
     world <- parseJsonBody_
     -- user time in seconds
@@ -182,9 +182,9 @@ postAdvanceR = do
     let worldTime = userTime * usrToWrldTime world
     jsonToRepJson $ advanceWorld worldTime world
 
-getSolarR  :: Handler RepJson
+getSolarR  :: Handler Value
 getSolarR  = jsonToRepJson solarWorld
-getWorld4R :: Handler RepJson
+getWorld4R :: Handler Value
 getWorld4R = jsonToRepJson world4
 
 

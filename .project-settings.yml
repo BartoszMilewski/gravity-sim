@@ -1,16 +1,20 @@
 extensions: {}
-files:
-  World: src/World.hs
-  Physics: src/Physics.hs
-  Json: src/Json.hs
-  Main: src/Main.hs
-  Test.Main: src/Test/Main.hs
-  Simulation: src/Simulation.hs
+version: 1
 module-template: ! 'module MODULE_NAME where
 
 '
-targets:
+modules:
+  World:
+    filename: src/World.hs
+  Physics:
+    filename: src/Physics.hs
+  Json:
+    filename: src/Json.hs
   Main:
-    TargetWeb: []
+    target-type: web
+    filename: src/Main.hs
   Test.Main:
-    TargetConsole: []
+    target-type: console
+    filename: src/Test/Main.hs
+  Simulation:
+    filename: src/Simulation.hs
