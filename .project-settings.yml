@@ -8,11 +8,11 @@ modules:
     filename: src/World.hs
   Physics:
     filename: src/Physics.hs
-  Json:
-    filename: src/Json.hs
-  Main:
+  Main(src/Main.hs):
     target-type: web
     filename: src/Main.hs
+  Json:
+    filename: src/Json.hs
   Test.Main:
     target-type: console
     filename: src/Test/Main.hs

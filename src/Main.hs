@@ -180,12 +180,12 @@ postAdvanceR = do
     -- user time in seconds
     let userTime = 1.0 / fromIntegral framesPerS
     let worldTime = userTime * usrToWrldTime world
-    jsonToRepJson $ advanceWorld worldTime world
+    returnJson $ advanceWorld worldTime world
 
 getSolarR  :: Handler Value
-getSolarR  = jsonToRepJson solarWorld
+getSolarR  = returnJson solarWorld
 getWorld4R :: Handler Value
-getWorld4R = jsonToRepJson world4
+getWorld4R = returnJson world4
 
 
 main = do
