@@ -3,13 +3,11 @@
 module Main where
 
 import Yesod
-import Data.Aeson
+import Json
 import System.Environment (getEnv)
 import qualified Control.Exception as E
 
-import Json
 import World
-import Physics
 import Simulation
 
 -- to do:
@@ -28,11 +26,17 @@ mkYesod "Gravity" [parseRoutes|
   /world4  World4R  GET
 |]
 
-boxColor   = "#000"::String
-bodyColor  = "#333"::String
-boxSizeX    = 600::Int
-boxSizeY    = 600::Int
-framesPerS = 16::Int
+boxColor, bodyColor :: String
+
+boxColor   = "#000"
+bodyColor  = "#333"
+
+boxSizeX, boxSizeY  :: Int
+boxSizeX    = 600
+boxSizeY    = 600
+
+framesPerS :: Int
+framesPerS = 16
 
 getHomeR = defaultLayout $ do
   setTitle "Gravity"
@@ -176,7 +180,7 @@ getHomeR = defaultLayout $ do
 
 postAdvanceR :: Handler Value
 postAdvanceR = do
-    world <- parseJsonBody_
+    world <- requireJsonBody
     -- user time in seconds
     let userTime = 1.0 / fromIntegral framesPerS
     let worldTime = userTime * usrToWrldTime world
@@ -187,7 +191,7 @@ getSolarR  = returnJson solarWorld
 getWorld4R :: Handler Value
 getWorld4R = returnJson world4
 
-
+main :: IO ()
 main = do
     portEither <- getPortEither
     let port = case portEither of

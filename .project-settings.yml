@@ -1,20 +1,15 @@
-extensions: {}
-version: 1
+binary-ghc-args:
+- -O
+- -threaded
 module-template: ! 'module MODULE_NAME where
 
 '
-modules:
-  World:
-    filename: src/World.hs
-  Physics:
-    filename: src/Physics.hs
-  Main(src/Main.hs):
-    target-type: web
-    filename: src/Main.hs
-  Json:
-    filename: src/Json.hs
-  Test.Main:
-    target-type: console
-    filename: src/Test/Main.hs
-  Simulation:
-    filename: src/Simulation.hs
+extensions: {}
+environment: ghc-7.8-stable-14.09
+auto-hidden: []
+version: 1
+extra-packages: ''
+ghc-args:
+- -Wall
+excluded-modules:
+- src/Test/Main.hs

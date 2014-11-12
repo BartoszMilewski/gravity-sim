@@ -1,8 +1,9 @@
 module Test.Main where
 
 import Simulation
-import World
 
+main :: IO ()
 main = do 
-    let newWorld = advanceWorld 10 world4
-    print newWorld
+    print $ duplicate $ PtSet [1, 2, 3]
+    --let newWorld = advanceWorld 10 world4
+    --print newWorld

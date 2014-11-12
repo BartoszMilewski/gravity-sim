@@ -19,7 +19,7 @@ accelerate :: Float -> [Particle] -> [Particle]
 accelerate dt particles =
     parMap rseq acc particles
   where
-    acc particle@(Particle m (Pos x y) (Vel vx vy)) =
+    acc particle =
       foldl addAcc particle particles
     addAcc myParticle@(Particle m pos (Vel vx vy)) otherParticle =
       let (Acc ax ay) = force myParticle otherParticle

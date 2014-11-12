@@ -8,7 +8,7 @@ import World
 -- a minimal epsilon distance.
 --
 force :: Particle -> Particle -> Accel
-force (Particle (Mass m1) (Pos x1 y1) _) (Particle (Mass m2) (Pos x2 y2) _)
+force (Particle (Mass _) (Pos x1 y1) _) (Particle (Mass m2) (Pos x2 y2) _)
   | d < epsilon = Acc 0 0
   | otherwise   = Acc (absAccel * dx / d) (absAccel * dy / d) 
   where
@@ -31,8 +31,8 @@ kineticEnergy (Particle (Mass m) _ (Vel vx vy)) = realToFrac $ 0.5 * m * vsqr
 -- a minimal epsilon distance
 --
 potentialEnergy :: Particle -> Particle -> Energy
-potentialEnergy (Particle (Mass m1) pos1@(Pos x1 y1) _) 
-                (Particle (Mass m2) pos2@(Pos x2 y2) _)
+potentialEnergy (Particle (Mass m1) (Pos x1 y1) _) 
+                (Particle (Mass m2) (Pos x2 y2) _)
   | d < epsilon = 0
   | otherwise   = - (realToFrac bigG * realToFrac m1 * realToFrac m2 / realToFrac d)
   where

@@ -16,8 +16,6 @@ module World (
   world4
   
 ) where
-  
-import Prelude hiding     (catch)
 
 import Control.Exception  (catch)
 import System.Exit        (exitFailure)
@@ -46,18 +44,18 @@ bigG = 6.67428e-11                  -- in m^3 kg^(-1) s^(-2)
 --
 newtype Mass   = Mass Float  
   deriving (Show, Read) -- in kilogram
-data Position  = Pos { x  :: Float, y  :: Float } deriving (Show, Read) -- in meter
-data Velocity  = Vel { vx :: Float, vy :: Float } deriving (Show, Read) -- in meter/second
-data Accel     = Acc { ax :: Float, ay :: Float } deriving (Show, Read) -- in meter/second^2
+data Position  = Pos { posx :: Float, posy :: Float } deriving (Show, Read) -- in meter
+data Velocity  = Vel { velx :: Float, vely :: Float } deriving (Show, Read) -- in meter/second
+data Accel     = Acc { accx :: Float, accy :: Float } deriving (Show, Read) -- in meter/second^2
 type Energy    = Double             -- in joule
 
 -- We represent particles as mass points at a particular position that have 
 -- a particular velocity
 --
 data Particle = Particle {
-    mass :: Mass
-  , pos  :: Position
-  , vel  :: Velocity
+    pmass :: Mass
+  , ppos  :: Position
+  , pvel  :: Velocity
 } deriving (Show, Read)
   
 -- The world state consists of three scaling factors and a set of particles.  
@@ -102,9 +100,9 @@ solarWorld = World 0 distanceScale (earthMass / 10000) 750
                       , Particle (Mass cometMass) 
                                  (Pos cometDist 0) (Vel 0 cometVelocity)
                       , Particle (Mass cometMass) 
-                                 (Pos (-cometDist) (-cometDist)) (Vel (5000) (-5000))
+                                 (Pos (-cometDist) (-cometDist)) (Vel 5000 (-5000))
                       , Particle (Mass cometMass) 
-                                 (Pos (2.0e11) (1.0e11)) (Vel (-2500) (5000))
+                                 (Pos 2.0e11 1.0e11) (Vel (-2500) 5000)
                       , Particle (Mass earthMass) 
                                  (Pos earthDist  0) (Vel 0 earthVelocity)
                       , Particle (Mass venusMass) 
