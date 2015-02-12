@@ -160,10 +160,10 @@ getHomeR = defaultLayout $ do
         var partsInView = 0;
         for (var j = 0; j < curWorld.parts.length; j++) {
             var part = curWorld.parts[j];
-          var size = Math.log(part.mass/curWorld.pixInKg) / Math.LN10;
+          var size = Math.log(part.pmass/curWorld.pixInKg) / Math.LN10;
           if (size < 2) size = 2;
-          var x = dimX/2 + curWorld.pixInM * part.pos.x;
-          var y = dimY/2 + curWorld.pixInM * part.pos.y;
+          var x = dimX/2 + curWorld.pixInM * part.ppos.posx;
+          var y = dimY/2 + curWorld.pixInM * part.ppos.posy;
           if ( x > -10 && x < dimX + 10 && y > -10 && y < dimY + 10) {
               partsInView += 1;
               ctx.beginPath(); 
