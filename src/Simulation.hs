@@ -1,6 +1,6 @@
 module Simulation (moveParticle, accelerate, advanceWorld) where
 
-import World
+import Types
 import Physics
 import Control.Parallel.Strategies
 

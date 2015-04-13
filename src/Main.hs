@@ -3,7 +3,7 @@
 module Main where
 
 import Yesod
-import Json
+import Types
 import System.Environment (getEnv)
 import qualified Control.Exception as E
 
@@ -38,6 +38,7 @@ boxSizeY    = 600
 framesPerS :: Int
 framesPerS = 16
 
+getHomeR :: HandlerT Gravity IO Html
 getHomeR = defaultLayout $ do
   setTitle "Gravity"
 
@@ -114,24 +115,27 @@ getHomeR = defaultLayout $ do
         });
     }
 
+    // Called in a loop
     function advance() {
         if (skip == 0) {
-            draw();
-            refresh();
+            drawWorld();
+            refreshWorld();
         } else
             skip -= 1;
     }
 
-    function refresh(simName) {
+    function refreshWorld(simName) {
+        // Get new world from server
         $.ajax(
-         {
+        {
            "data"    : JSON.stringify(curWorld),
            "type"    : "POST",
            "url"     : "@{AdvanceR}",
            "success" : updateWorld
-         });
+        });
     }
 
+    // Handler called with new world
     function updateWorld(newWorld)
     {
        if(!curWorld) alert("null world!");
@@ -148,7 +152,7 @@ getHomeR = defaultLayout $ do
     var dimX = #{toJSON boxSizeX};
     var dimY = #{toJSON boxSizeY};
 
-    function draw() {
+    function drawWorld() {
         if (!curWorld) return true; // might happen
 
         var canvas = document.getElementById('sky');
@@ -175,19 +179,23 @@ getHomeR = defaultLayout $ do
     }
   |]
 
-
+--------------------
 -- Server side logic
+--------------------
 
 postAdvanceR :: Handler Value
 postAdvanceR = do
+    -- Parse the request body to a data type as a JSON value
     world <- requireJsonBody
     -- user time in seconds
     let userTime = 1.0 / fromIntegral framesPerS
     let worldTime = userTime * usrToWrldTime world
+    -- do the simulation
     returnJson $ advanceWorld worldTime world
 
 getSolarR  :: Handler Value
 getSolarR  = returnJson solarWorld
+
 getWorld4R :: Handler Value
 getWorld4R = returnJson world4
 
@@ -197,7 +205,9 @@ main = do
     let port = case portEither of
                         Right val -> read val
                         Left _    -> 3000
+    -- start the server
     warp port Gravity
   where
+    -- try to get the port from environment
     getPortEither :: IO (Either IOError String)
     getPortEither = E.try (getEnv "PORT")

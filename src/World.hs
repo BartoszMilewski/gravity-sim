@@ -1,82 +1,21 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module World (
-
-  -- constants
-  epsilon, width, height, bigG,
-  
-  -- types
-  Mass(..), Position(..), Velocity(..), Accel(..), Energy, Particle(..), World(..),
-  
   -- read a world from a file
   readWorld,
 
   solarWorld,
   -- a 4-body world
-  world4
-  
+  world4 
 ) where
 
 import Control.Exception  (catch)
 import System.Exit        (exitFailure)
+import Types
 
-  
--- Types & constants
--- -----------------
-
--- For floating point comparisons
---
-epsilon :: Float
-epsilon = 0.001
-
--- Constants
---
 width, height :: Int    -- extent of the window; origin is in the center
 width  = 600
 height = 600
-
--- Gravitational constant
---
-bigG :: Float
-bigG = 6.67428e-11                  -- in m^3 kg^(-1) s^(-2)
-
--- Basic physical measures
---
-newtype Mass   = Mass Float  
-  deriving (Show, Read) -- in kilogram
-data Position  = Pos { posx :: Float, posy :: Float } deriving (Show, Read) -- in meter
-data Velocity  = Vel { velx :: Float, vely :: Float } deriving (Show, Read) -- in meter/second
-data Accel     = Acc { accx :: Float, accy :: Float } deriving (Show, Read) -- in meter/second^2
-type Energy    = Double             -- in joule
-
--- We represent particles as mass points at a particular position that have 
--- a particular velocity
---
-data Particle = Particle {
-    pmass :: Mass
-  , ppos  :: Position
-  , pvel  :: Velocity
-} deriving (Show, Read)
-  
--- The world state consists of three scaling factors and a set of particles.  
---
--- * The first scaling factor determines which fraction of a pixel represents one meter.
--- * The second scaling factor determines which fraction of a pixel represents 
---   one kilogram when determining the radius of the circle representing a particle.
--- * The third scaling factor determines how many simulated seconds correspond to 
---   one second of real time.
---
-data World = World {
-    seqNum  :: Int   -- sequence number to serialize communications
-  , pixInM  :: Float -- fraction of a pixel corresponding to world meter
-  , pixInKg :: Float -- fraction of a pixel corresponding to world kg
-  , usrToWrldTime :: Float -- user time in s to world time
-  , parts   :: [Particle]
-} deriving (Show, Read)
-
-
--- Setting up the world
--- --------------------
 
 -- Read a world model from the given file
 --
@@ -90,9 +29,6 @@ readWorld fname
        putStrLn $ "Fatal error: can't read world description\n" ++ show exc
        exitFailure
 
-
-
---
 solarWorld :: World
 solarWorld = World 0 distanceScale (earthMass / 10000) 750
                       [ Particle (Mass sunMass) 
